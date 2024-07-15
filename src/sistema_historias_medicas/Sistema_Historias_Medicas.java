@@ -12,5 +12,8 @@ public class Sistema_Historias_Medicas {
         PantallaMain pantalla = new PantallaMain();
         System.out.println("Hola Mundo");
         System.out.println("Si");
+        System.out.println("Samuel Sam HOLA UWU");
+        System.out.println("NYA");
+
     }
 }
