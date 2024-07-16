@@ -1,14 +1,18 @@
 package sistema_historias_medicas;
 
 import Backend.ConexionBDD;
+import com.toedter.calendar.JDateChooser;
+import java.util.Date;
 import java.awt.Color;
 import java.sql.*; // Importación para el manejo de la base de datos mediante SQL
 import javax.swing.DefaultComboBoxModel; // Importación para utilizar el modelo predeterminado de un JComboBox
 import javax.swing.JOptionPane; // Importación para mostrar mensajes emergentes
 import javax.swing.table.DefaultTableModel; // Importación para manejar el modelo predeterminado de una tabla
-import java.sql.Date; // Importación para utilizar el tipo de datos Date de SQL
+import java.text.SimpleDateFormat;
 import java.util.regex.Matcher; // Importación para realizar coincidencias de expresiones regulares
 import java.util.regex.Pattern; // Importación para trabajar con patrones de expresiones regulares
+
+
 
 public class PantallaMain extends javax.swing.JFrame {
     
@@ -25,8 +29,8 @@ public class PantallaMain extends javax.swing.JFrame {
         // Inicializar la conexión a la base de datos
         conexionBDD = new ConexionBDD();
         conexion = conexionBDD.getConnection();
-        
-        consultar();
+        paciente = new Paciente(conexion);
+        consultarPacientes();
     }
 
     /**
@@ -82,6 +86,7 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_limpiar_paciente = new javax.swing.JButton();
         btn_modificar_paciente = new javax.swing.JButton();
         btn_guardar_paciente = new javax.swing.JButton();
+        paciente_DT = new com.toedter.calendar.JDateChooser();
         jPanel4 = new javax.swing.JPanel();
         lbl_nombre_proyecto3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -510,6 +515,11 @@ public class PantallaMain extends javax.swing.JFrame {
                 "Paciente ID", "Nombre", "Apellido", "Fecha Nacimiento", "Genero", "Direccion", "Telefono", "Email", "Alergias", "Enfermedades Preexistentes", "Seguro Dental"
             }
         ));
+        TablaPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaPacienteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TablaPaciente);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -563,7 +573,12 @@ public class PantallaMain extends javax.swing.JFrame {
             }
         });
 
-        paciente_genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino", "Otro(pato)" }));
+        paciente_genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F", "O" }));
+        paciente_genero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paciente_generoActionPerformed(evt);
+            }
+        });
 
         paciente_email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -701,7 +716,10 @@ public class PantallaMain extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
-                                    .addComponent(paciente_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(paciente_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(365, 365, 365)
+                                        .addComponent(paciente_DT, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(paciente_email, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(33, 33, 33)
@@ -738,22 +756,25 @@ public class PantallaMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lbl_nombre_proyecto2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(paciente_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paciente_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paciente_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paciente_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paciente_genero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(paciente_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(paciente_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(paciente_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(paciente_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(paciente_genero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(paciente_DT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -1858,9 +1879,8 @@ public class PantallaMain extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(btn_guardar_tratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(17, 17, 17)))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                    .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
                     .addComponent(jLabel46))
                 .addGap(48, 48, 48))
         );
@@ -2397,7 +2417,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_limpiar_pacienteMouseMoved
 
     private void btn_limpiar_pacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limpiar_pacienteMouseClicked
-        
+        limpiarCampos();
     }//GEN-LAST:event_btn_limpiar_pacienteMouseClicked
 
     private void btn_limpiar_pacienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limpiar_pacienteMouseExited
@@ -2409,7 +2429,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_modificar_pacienteMouseMoved
 
     private void btn_modificar_pacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_pacienteMouseClicked
-        // TODO add your handling code here:
+        modificarPaciente(); 
     }//GEN-LAST:event_btn_modificar_pacienteMouseClicked
 
     private void btn_modificar_pacienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_pacienteMouseExited
@@ -2425,7 +2445,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_guardar_pacienteMouseMoved
 
     private void btn_guardar_pacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_pacienteMouseClicked
-       
+        guardarPaciente();
     }//GEN-LAST:event_btn_guardar_pacienteMouseClicked
 
     private void btn_guardar_pacienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_pacienteMouseExited
@@ -2700,15 +2720,132 @@ public class PantallaMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_guardar_radiografiaActionPerformed
 
-        void consultar() {
-        // Crear una instancia de la clase Paciente para manejar la consulta
-        paciente = new Paciente(conexion);
-        // Llamar al método consultar de la clase Paciente para obtener y mostrar los pacientes en la tabla
+    private void paciente_generoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paciente_generoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_paciente_generoActionPerformed
+
+    private void TablaPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPacienteMouseClicked
+        cargarDatosSeleccionadosPacientes();
+    }//GEN-LAST:event_TablaPacienteMouseClicked
+
+    void consultarPacientes() {
         paciente.consultar(TablaPaciente);
     }
     
+    private void guardarPaciente() {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String fechaNacimiento = dateFormat.format(paciente_DT.getDate());
+            paciente.guardarPaciente(
+                paciente_nombre.getText(),
+                paciente_apellido.getText(),
+                fechaNacimiento,
+                paciente_genero.getSelectedItem().toString(),
+                paciente_direccion.getText(),
+                paciente_telefono.getText(),
+                paciente_email.getText(),
+                paciente_alergias.getText(),
+                paciente_EP.getText(),
+                paciente_SD.getText()
+            );
+            JOptionPane.showMessageDialog(this, "Paciente guardado exitosamente");
+            consultarPacientes();
+            limpiarCampos();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar paciente: " + e.getMessage());
+        }
+    }
+
+    private void modificarPaciente() {
+        int pacienteId = Integer.parseInt(paciente_id.getText());
+        String nombre = paciente_nombre.getText();
+        String apellido = paciente_apellido.getText();
+        String email = paciente_email.getText();
+        String telefono = paciente_telefono.getText();
+        String alergias = paciente_alergias.getText();
+        String enfermedadesPreexistentes = paciente_EP.getText();
+        Date fechaNacimiento = paciente_DT.getDate();
+        String genero = (String) paciente_genero.getSelectedItem();
+        String seguroDental = paciente_SD.getText();
+        String direccion = paciente_direccion.getText();
+
+        // Lógica para actualizar los datos del paciente en la base de datos
+        try {
+            PreparedStatement pst = conexion.prepareStatement(
+                    "UPDATE Pacientes SET nombre=?, apellido=?, correo_electronico=?, telefono=?, "
+                    + "alergias=?, enfermedades_preexistentes=?, fecha_nacimiento=?, genero=?, "
+                    + "seguro_dental=?, direccion=? WHERE paciente_id=?");
+            pst.setString(1, nombre);
+            pst.setString(2, apellido);
+            pst.setString(3, email);
+            pst.setString(4, telefono);
+            pst.setString(5, alergias);
+            pst.setString(6, enfermedadesPreexistentes);
+            pst.setDate(7, new java.sql.Date(fechaNacimiento.getTime()));
+            pst.setString(8, genero);
+            pst.setString(9, seguroDental);
+            pst.setString(10, direccion);
+            pst.setInt(11, pacienteId);
+
+            int resultado = pst.executeUpdate();
+            if (resultado > 0) {
+                JOptionPane.showMessageDialog(null, "Datos del paciente modificados correctamente");
+                // Actualizar la tabla después de la modificación
+                paciente.consultar(TablaPaciente);
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo modificar los datos del paciente");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al modificar paciente: " + e.getMessage());
+        }
+    }
     
-    
+    private void cargarDatosSeleccionadosPacientes() {
+        int filaSeleccionada = TablaPaciente.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            DefaultTableModel modelo = (DefaultTableModel) TablaPaciente.getModel();
+            int pacienteId = (int) modelo.getValueAt(filaSeleccionada, 0);
+            String nombre = (String) modelo.getValueAt(filaSeleccionada, 1);
+            String apellido = (String) modelo.getValueAt(filaSeleccionada, 2);
+            String email = (String) modelo.getValueAt(filaSeleccionada, 7); // correo_electronico
+            String telefono = (String) modelo.getValueAt(filaSeleccionada, 6); // telefono
+            String alergias = (String) modelo.getValueAt(filaSeleccionada, 8); // alergias
+            String enfermedadesPreexistentes = (String) modelo.getValueAt(filaSeleccionada, 9); // enfermedades_preexistentes
+            java.sql.Date fechaNacimientoSql = (java.sql.Date) modelo.getValueAt(filaSeleccionada, 3); // fecha_nacimiento
+            String genero = (String) modelo.getValueAt(filaSeleccionada, 4); // genero
+            String seguroDental = (String) modelo.getValueAt(filaSeleccionada, 10); // seguro_dental
+            String direccion = (String) modelo.getValueAt(filaSeleccionada, 5); // direccion
+
+            // Asignar valores a los componentes de la interfaz
+            paciente_id.setText(String.valueOf(pacienteId));
+            paciente_nombre.setText(nombre);
+            paciente_apellido.setText(apellido);
+            paciente_email.setText(email);
+            paciente_telefono.setText(telefono);
+            paciente_alergias.setText(alergias);
+            paciente_EP.setText(enfermedadesPreexistentes);
+            paciente_DT.setDate(fechaNacimientoSql); // Utiliza paciente_DT como tu JDateChooser
+            paciente_genero.setSelectedItem(genero);
+            paciente_SD.setText(seguroDental);
+            paciente_direccion.setText(direccion);
+        }
+    }
+
+
+    private void limpiarCampos() {
+        paciente_id.setText("");
+        paciente_nombre.setText("");
+        paciente_apellido.setText("");
+        paciente_email.setText("");
+        paciente_telefono.setText("");
+        paciente_alergias.setText("");
+        paciente_EP.setText("");
+        paciente_genero.setSelectedIndex(0);
+        paciente_DT.setDate(null); // Limpiar el campo de fecha de nacimiento
+        paciente_direccion.setText("");
+        paciente_SD.setText(""); // Limpiar el campo seguro dental
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea HC_RC;
@@ -2846,6 +2983,7 @@ public class PantallaMain extends javax.swing.JFrame {
     private javax.swing.JTextField odontologo_id;
     private javax.swing.JTextField odontologo_nombre;
     private javax.swing.JTextField odontologo_telefono;
+    private com.toedter.calendar.JDateChooser paciente_DT;
     private javax.swing.JTextField paciente_EP;
     private javax.swing.JTextField paciente_SD;
     private javax.swing.JTextField paciente_alergias;
