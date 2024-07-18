@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel; // Importación para manejar el mode
 import java.text.SimpleDateFormat;
 import java.util.regex.Matcher; // Importación para realizar coincidencias de expresiones regulares
 import java.util.regex.Pattern; // Importación para trabajar con patrones de expresiones regulares
+import javax.swing.JTable;
 
 
 
@@ -19,7 +20,12 @@ public class PantallaMain extends javax.swing.JFrame {
     private ConexionBDD conexionBDD; // Conexión a la base de datos
     private Connection conexion; // Instancia de la clase Paciente
     private Paciente paciente;
-    
+    private Odontologos odontologos;
+    private Citas citas;
+    private HistoriasClinicas historiasClinicas; // Instancia de la clase HistoriasClinicas
+    private Protesis_Dentales protesisDentales;
+    private Tratamientos tratamientos;
+    private Radiografia radiografia;
     public PantallaMain() {
         this.setUndecorated(true); // Configuración para quitar la decoración de la ventana
         initComponents(); // Inicialización de los componentes de la interfaz gráfica
@@ -30,7 +36,20 @@ public class PantallaMain extends javax.swing.JFrame {
         conexionBDD = new ConexionBDD();
         conexion = conexionBDD.getConnection();
         paciente = new Paciente(conexion);
+        odontologos = new Odontologos(conexion);
+        odontologos.consultar(TablaOdontologos);
+        citas = new Citas(conexion);
+        historiasClinicas = new HistoriasClinicas(conexion);
         consultarPacientes();
+        odontologos.consultar(TablaOdontologos);
+        consultarCitas();
+        historiasClinicas.consultarHC(TablaHC);
+        protesisDentales = new Protesis_Dentales(conexion);
+        protesisDentales.consultar(ProtesisDent);
+        tratamientos = new Tratamientos(conexion);
+        tratamientos.consultar(TratamientosTB);
+        radiografia = new Radiografia(conexion); // Inicialización de la instancia de Radiografia
+        consultarRadiografias(); // Cargar datos al iniciar la pantalla
     }
 
     /**
@@ -90,7 +109,7 @@ public class PantallaMain extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         lbl_nombre_proyecto3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        TablaHC = new javax.swing.JTable();
         jLabel82 = new javax.swing.JLabel();
         jLabel83 = new javax.swing.JLabel();
         HC_id = new javax.swing.JTextField();
@@ -107,7 +126,7 @@ public class PantallaMain extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         lbl_nombre_proyecto4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        TablaCitas = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -123,10 +142,11 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_limpiar_cita = new javax.swing.JButton();
         btn_modificar_cita = new javax.swing.JButton();
         btn_guardar_cita = new javax.swing.JButton();
+        CitasFecha = new com.toedter.calendar.JDateChooser();
         jPanel6 = new javax.swing.JPanel();
         lbl_nombre_proyecto5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        TablaOdontologos = new javax.swing.JTable();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -151,10 +171,12 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_limpiar_odontologo = new javax.swing.JButton();
         btn_modificar_odontologo = new javax.swing.JButton();
         btn_guardar_odontologo = new javax.swing.JButton();
+        estadoOdontologo = new javax.swing.JComboBox<>();
+        jLabel45 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         lbl_nombre_proyecto6 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        ProtesisDent = new javax.swing.JTable();
         jLabel27 = new javax.swing.JLabel();
         protesis_id = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
@@ -167,10 +189,13 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_limpiar_PD = new javax.swing.JButton();
         btn_modificar_PD = new javax.swing.JButton();
         btn_guardar_protesis = new javax.swing.JButton();
+        Fecha_Col = new com.toedter.calendar.JDateChooser();
+        jLabel44 = new javax.swing.JLabel();
+        protesis_Paciente_ID = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         lbl_nombre_proyecto7 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
+        TratamientosTB = new javax.swing.JTable();
         jLabel33 = new javax.swing.JLabel();
         tratamientos_id = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
@@ -188,10 +213,14 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_limpiar_tratamiento = new javax.swing.JButton();
         btn_modificar_tratamiento = new javax.swing.JButton();
         btn_guardar_tratamiento = new javax.swing.JButton();
+        jLabel47 = new javax.swing.JLabel();
+        tratamientos_Paciente_ID = new javax.swing.JTextField();
+        Fecha_Inicio = new com.toedter.calendar.JDateChooser();
+        Fecha_Final = new com.toedter.calendar.JDateChooser();
         jPanel9 = new javax.swing.JPanel();
         lbl_nombre_proyecto8 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
+        RadiografiasTB = new javax.swing.JTable();
         jLabel37 = new javax.swing.JLabel();
         radiografia_id = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
@@ -205,6 +234,9 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_limpiar_radiografia = new javax.swing.JButton();
         btn_modificar_radiografia = new javax.swing.JButton();
         btn_guardar_radiografia = new javax.swing.JButton();
+        radiografia_fecha = new com.toedter.calendar.JDateChooser();
+        jLabel48 = new javax.swing.JLabel();
+        radiografia_Paciente_ID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1080, 720));
@@ -803,7 +835,7 @@ public class PantallaMain extends javax.swing.JFrame {
         lbl_nombre_proyecto3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lbl_nombre_proyecto3.setText("Historias Clínicas");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        TablaHC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -811,10 +843,15 @@ public class PantallaMain extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Historia Clinica ID", "Paciente ID", "Resumen Consultas", "Diagnostico"
+                "Historia Clinica ID", "Resumen Consultas", "Diagnostico", "Paciente ID"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        TablaHC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaHCMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(TablaHC);
 
         jLabel82.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel82.setText("Paciente ID");
@@ -995,7 +1032,7 @@ public class PantallaMain extends javax.swing.JFrame {
         lbl_nombre_proyecto4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lbl_nombre_proyecto4.setText("Citas");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        TablaCitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -1003,10 +1040,15 @@ public class PantallaMain extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Cita ID", "Fecha y Hora", "Paciente ID", "Odontologo ID", "Motivo Consulta", "Estado de Cita"
+                "Cita ID", "Fecha y Hora", "Motivo Consulta", "Estado Cita", "Paciente ID", "Odontologo ID"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        TablaCitas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaCitasMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(TablaCitas);
 
         jLabel12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel12.setText("Paciente ID");
@@ -1044,7 +1086,12 @@ public class PantallaMain extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel17.setText("Estado de Cita");
 
-        citas_EC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        citas_EC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "Confirmada", "Cancelada" }));
+        citas_EC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                citas_ECActionPerformed(evt);
+            }
+        });
 
         citas_MC.setColumns(20);
         citas_MC.setRows(5);
@@ -1120,6 +1167,8 @@ public class PantallaMain extends javax.swing.JFrame {
             }
         });
 
+        CitasFecha.setDateFormatString("MMM d, y HH:mm");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -1141,17 +1190,19 @@ public class PantallaMain extends javax.swing.JFrame {
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(citas_odontologo_id, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel14)))
-                            .addComponent(citas_paciente_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addGap(103, 103, 103)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15)
+                                    .addComponent(CitasFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(116, 116, 116)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(citas_EC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel17))
                                 .addGap(85, 85, 85)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel16)
-                                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(citas_paciente_id, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -1186,8 +1237,13 @@ public class PantallaMain extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
                             .addComponent(jLabel15))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(citas_EC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(citas_EC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(CitasFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel16)
@@ -1207,18 +1263,23 @@ public class PantallaMain extends javax.swing.JFrame {
         lbl_nombre_proyecto5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lbl_nombre_proyecto5.setText("Odontólogos");
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        TablaOdontologos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Odontologo ID", "Nombre", "Apellido", "Numero Colegiatura", "especialidad", "Direccion", "Telefono", "Email", "Horario Atencion", "Consultorio Asignado"
+                "Odontologo ID", "Nombre", "Apellido", "Numero Colegiatura", "especialidad", "Direccion", "Telefono", "Email", "Horario Atencion", "Consultorio Asignado", "Estado"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
+        TablaOdontologos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaOdontologosMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(TablaOdontologos);
 
         jLabel18.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel18.setText("Odontólogo ID");
@@ -1366,6 +1427,11 @@ public class PantallaMain extends javax.swing.JFrame {
             }
         });
 
+        estadoOdontologo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "I" }));
+
+        jLabel45.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel45.setText("Estado");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -1395,24 +1461,30 @@ public class PantallaMain extends javax.swing.JFrame {
                                             .addComponent(odontologo_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel20)))
                                     .addComponent(odontologo_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel21)
                                     .addComponent(odontologo_NC, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(45, 45, 45))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel25)
                                     .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(odontologo_email, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(33, 33, 33)
                                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(odontologo_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel24))))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(odontologo_CA, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel25)
+                                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                                .addComponent(odontologo_email, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(33, 33, 33)
+                                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(odontologo_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jLabel24))))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(odontologo_CA, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel45))
+                                    .addComponent(estadoOdontologo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
@@ -1478,7 +1550,10 @@ public class PantallaMain extends javax.swing.JFrame {
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(odontologo_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(odontologo_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                        .addComponent(jLabel45)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(estadoOdontologo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1487,8 +1562,8 @@ public class PantallaMain extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(odontologo_CA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(48, 48, 48)))
+                            .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(48, 48, 48)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btn_modificar_odontologo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1502,21 +1577,23 @@ public class PantallaMain extends javax.swing.JFrame {
         lbl_nombre_proyecto6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lbl_nombre_proyecto6.setText("Prótesis Dentales");
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        ProtesisDent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Protesis ID", "Tipo Protesis", "Fecha Colocacion", "Costo", "Historia Clinica ID"
+                "Protesis ID", "Tipo Protesis", "Fecha Colocacion", "Costo", "Historia Clinica ID", "Paciente ID"
             }
         ));
-        jScrollPane5.setViewportView(jTable5);
-        if (jTable5.getColumnModel().getColumnCount() > 0) {
-            jTable5.getColumnModel().getColumn(4).setHeaderValue("Historia Clinica ID");
-        }
+        ProtesisDent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProtesisDentMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(ProtesisDent);
 
         jLabel27.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel27.setText("Prótesis ID");
@@ -1627,6 +1704,15 @@ public class PantallaMain extends javax.swing.JFrame {
             }
         });
 
+        jLabel44.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel44.setText("Paciente ID");
+
+        protesis_Paciente_ID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                protesis_Paciente_IDActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -1647,20 +1733,23 @@ public class PantallaMain extends javax.swing.JFrame {
                                 .addComponent(jLabel27)
                                 .addGap(50, 50, 50)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel7Layout.createSequentialGroup()
-                                        .addComponent(jLabel29)
-                                        .addGap(43, 43, 43)
-                                        .addComponent(jLabel30))
-                                    .addComponent(protesis_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(40, 40, 40)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel32)
-                                    .addComponent(protesis_costo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(25, 25, 25)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(protesis_HC_id, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel31)))
-                            .addComponent(protesis_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel29)
+                                    .addComponent(protesis_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(protesis_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel44)
+                            .addComponent(protesis_Paciente_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Fecha_Col, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(40, 40, 40)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel32)
+                            .addComponent(protesis_costo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(protesis_HC_id, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel31))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel7Layout.createSequentialGroup()
@@ -1690,17 +1779,26 @@ public class PantallaMain extends javax.swing.JFrame {
                     .addComponent(jLabel32)
                     .addComponent(jLabel31))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(protesis_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(protesis_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(protesis_costo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(protesis_HC_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn_modificar_PD, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_limpiar_PD, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_guardar_protesis, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(protesis_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(protesis_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(protesis_costo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(protesis_HC_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel44)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(protesis_Paciente_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btn_modificar_PD, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_limpiar_PD, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_guardar_protesis, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(Fecha_Col, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -1709,18 +1807,23 @@ public class PantallaMain extends javax.swing.JFrame {
         lbl_nombre_proyecto7.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lbl_nombre_proyecto7.setText("Tratamientos");
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        TratamientosTB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Tratamiento ID", "Costo", "Descripcion", "Historia Clinica ID", "Procedimientos", "Fecha Inicio", "Fecha Final"
+                "Tratamiento ID", "Costo", "Descripcion", "Historia Clinica ID", "Procedimientos", "Fecha Inicio", "Fecha Final", "Paciente ID"
             }
         ));
-        jScrollPane6.setViewportView(jTable6);
+        TratamientosTB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TratamientosTBMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(TratamientosTB);
 
         jLabel33.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel33.setText("Tratamiento ID");
@@ -1839,6 +1942,9 @@ public class PantallaMain extends javax.swing.JFrame {
             }
         });
 
+        jLabel47.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel47.setText("Paciente ID");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -1855,9 +1961,21 @@ public class PantallaMain extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel33)
-                            .addComponent(tratamientos_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_limpiar_tratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_modificar_tratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(btn_guardar_tratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel47)
+                                .addGap(22, 22, 22))
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(tratamientos_id))
+                            .addComponent(tratamientos_Paciente_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel34)
@@ -1866,19 +1984,20 @@ public class PantallaMain extends javax.swing.JFrame {
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel35)
                             .addComponent(tratamiento_costo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel42))
-                        .addGap(45, 45, 45)
+                            .addComponent(jLabel42)
+                            .addComponent(Fecha_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel43)
-                            .addComponent(jLabel36)
-                            .addComponent(tratamiento_HC_id, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(btn_limpiar_tratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_modificar_tratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btn_guardar_tratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Fecha_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel43)
+                                    .addComponent(tratamiento_HC_id, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(23, 23, 23))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel36)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))))
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
                     .addComponent(jLabel46))
@@ -1894,19 +2013,18 @@ public class PantallaMain extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel33)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tratamientos_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel46)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel46)
+                            .addComponent(jLabel36))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel36)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(23, 23, 23)
                         .addComponent(tratamiento_HC_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel43))
+                        .addComponent(jLabel43)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Fecha_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel34)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1916,8 +2034,18 @@ public class PantallaMain extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tratamiento_costo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel42)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                        .addComponent(jLabel42)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Fecha_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel33)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tratamientos_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jLabel47)
+                .addGap(18, 18, 18)
+                .addComponent(tratamientos_Paciente_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btn_modificar_tratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1931,18 +2059,23 @@ public class PantallaMain extends javax.swing.JFrame {
         lbl_nombre_proyecto8.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lbl_nombre_proyecto8.setText("Radiografías");
 
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        RadiografiasTB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Radiografia ID", "Tipo Radiografia", "Fecha Radiografia", "Descripcion", "Historia Clinica ID"
+                "Radiografia ID", "Tipo Radiografia", "Fecha Radiografia", "Descripcion", "Historia Clinica ID", "Paciente ID"
             }
         ));
-        jScrollPane7.setViewportView(jTable7);
+        RadiografiasTB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RadiografiasTBMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(RadiografiasTB);
 
         jLabel37.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel37.setText("Radiografía ID");
@@ -2051,6 +2184,15 @@ public class PantallaMain extends javax.swing.JFrame {
             }
         });
 
+        jLabel48.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel48.setText("Paciente ID");
+
+        radiografia_Paciente_ID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radiografia_Paciente_IDActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -2067,11 +2209,13 @@ public class PantallaMain extends javax.swing.JFrame {
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel37)
-                                    .addComponent(radiografia_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(50, 50, 50)
+                                .addGap(29, 29, 29)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel48)
+                                    .addComponent(radiografia_Paciente_ID)
+                                    .addComponent(radiografia_id))
+                                .addGap(55, 55, 55)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel38)
                                     .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2081,11 +2225,12 @@ public class PantallaMain extends javax.swing.JFrame {
                                     .addComponent(radiografia_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(25, 25, 25)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(radiografia_HC_id, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel9Layout.createSequentialGroup()
-                                        .addComponent(jLabel40)
-                                        .addGap(32, 32, 32)
-                                        .addComponent(jLabel41))))
+                                    .addComponent(jLabel40)
+                                    .addComponent(radiografia_HC_id, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(32, 32, 32)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(radiografia_fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addGap(269, 269, 269)
                                 .addComponent(btn_limpiar_radiografia, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2106,29 +2251,37 @@ public class PantallaMain extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel37)
-                            .addComponent(jLabel38))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(radiografia_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel39)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel38)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel39)
+                                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel40)
+                                        .addComponent(jLabel41)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(radiografia_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(radiografia_HC_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(radiografia_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel40)
-                                .addComponent(jLabel41)))
+                                .addComponent(btn_modificar_radiografia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_limpiar_radiografia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_guardar_radiografia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel37)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(radiografia_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(radiografia_HC_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn_modificar_radiografia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_limpiar_radiografia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_guardar_radiografia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(radiografia_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(85, 85, 85)
+                        .addComponent(jLabel48)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radiografia_Paciente_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 96, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -2461,7 +2614,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_limpiar_HCMouseMoved
 
     private void btn_limpiar_HCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limpiar_HCMouseClicked
-        // TODO add your handling code here:
+       limpiarCamposHistoriasClinicas();
     }//GEN-LAST:event_btn_limpiar_HCMouseClicked
 
     private void btn_limpiar_HCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limpiar_HCMouseExited
@@ -2473,7 +2626,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_modificar_HCMouseMoved
 
     private void btn_modificar_HCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_HCMouseClicked
-        // TODO add your handling code here:
+        modificarHistoriaClinica();
     }//GEN-LAST:event_btn_modificar_HCMouseClicked
 
     private void btn_modificar_HCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_HCMouseExited
@@ -2489,7 +2642,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_guardar_HCMouseMoved
 
     private void btn_guardar_HCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_HCMouseClicked
-        // TODO add your handling code here:
+        guardarHistoriaClinica();
     }//GEN-LAST:event_btn_guardar_HCMouseClicked
 
     private void btn_guardar_HCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_HCMouseExited
@@ -2505,7 +2658,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_limpiar_citaMouseMoved
 
     private void btn_limpiar_citaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limpiar_citaMouseClicked
-        // TODO add your handling code here:
+        limpiarCamposCitas();
     }//GEN-LAST:event_btn_limpiar_citaMouseClicked
 
     private void btn_limpiar_citaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limpiar_citaMouseExited
@@ -2517,7 +2670,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_modificar_citaMouseMoved
 
     private void btn_modificar_citaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_citaMouseClicked
-        // TODO add your handling code here:
+        modificarCita();
     }//GEN-LAST:event_btn_modificar_citaMouseClicked
 
     private void btn_modificar_citaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_citaMouseExited
@@ -2533,7 +2686,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_guardar_citaMouseMoved
 
     private void btn_guardar_citaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_citaMouseClicked
-        // TODO add your handling code here:
+        guardarCita();
     }//GEN-LAST:event_btn_guardar_citaMouseClicked
 
     private void btn_guardar_citaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_citaMouseExited
@@ -2549,7 +2702,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_limpiar_odontologoMouseMoved
 
     private void btn_limpiar_odontologoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limpiar_odontologoMouseClicked
-        // TODO add your handling code here:
+        limpiarCamposOdontologos();
     }//GEN-LAST:event_btn_limpiar_odontologoMouseClicked
 
     private void btn_limpiar_odontologoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limpiar_odontologoMouseExited
@@ -2561,7 +2714,28 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_modificar_odontologoMouseMoved
 
     private void btn_modificar_odontologoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_odontologoMouseClicked
-        // TODO add your handling code here:
+                int filaSeleccionada = TablaOdontologos.getSelectedRow();
+    if (filaSeleccionada >= 0) {
+            int id = (int) TablaOdontologos.getValueAt(filaSeleccionada, 0);
+            String nombre = odontologo_nombre.getText();
+            String apellido = odontologo_apellido.getText();
+            String numero_colegiatura = odontologo_NC.getText();
+            String especialidad = odontologo_especialidad.getText();
+            String horario_atencion = odontologo_HA.getText();
+            int consultorio_asignado = Integer.parseInt(odontologo_CA.getText());
+            String telefono = odontologo_telefono.getText();
+            String direccion = odontologo_direccion.getText();
+            String email = odontologo_email.getText();
+
+            // Obtener el estado del odontólogo del JComboBox
+            String estadoOdontologo = (String) this.estadoOdontologo.getSelectedItem();
+
+            odontologos.modificar(id, nombre, apellido, numero_colegiatura, especialidad, horario_atencion, consultorio_asignado, telefono, direccion, email, estadoOdontologo);
+            odontologos.consultar(TablaOdontologos);
+            limpiarCamposOdontologos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un odontólogo para modificar");
+        }
     }//GEN-LAST:event_btn_modificar_odontologoMouseClicked
 
     private void btn_modificar_odontologoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_odontologoMouseExited
@@ -2573,11 +2747,27 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_modificar_odontologoActionPerformed
 
     private void btn_guardar_odontologoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_odontologoMouseMoved
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btn_guardar_odontologoMouseMoved
 
     private void btn_guardar_odontologoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_odontologoMouseClicked
-        // TODO add your handling code here:
+        String nombre = odontologo_nombre.getText();
+        String apellido = odontologo_apellido.getText();
+        String numero_colegiatura = odontologo_NC.getText();
+        String especialidad = odontologo_especialidad.getText();
+        String horario_atencion = odontologo_HA.getText();
+        int consultorio_asignado = Integer.parseInt(odontologo_CA.getText());
+        String telefono = odontologo_telefono.getText();
+        String direccion = odontologo_direccion.getText();
+        String email = odontologo_email.getText();
+
+        // Obtener el estado del odontólogo del JComboBox
+        String estado = (String) estadoOdontologo.getSelectedItem();
+
+        odontologos.guardar(nombre, apellido, numero_colegiatura, especialidad, horario_atencion, consultorio_asignado, telefono, direccion, email, estado);
+        odontologos.consultar(TablaOdontologos);
+        limpiarCamposOdontologos();
+        JOptionPane.showMessageDialog(null, "Odontólogo guardado exitosamente");
     }//GEN-LAST:event_btn_guardar_odontologoMouseClicked
 
     private void btn_guardar_odontologoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_odontologoMouseExited
@@ -2593,7 +2783,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_limpiar_PDMouseMoved
 
     private void btn_limpiar_PDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limpiar_PDMouseClicked
-        // TODO add your handling code here:
+        limpiarCamposProtesisDentales();
     }//GEN-LAST:event_btn_limpiar_PDMouseClicked
 
     private void btn_limpiar_PDMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limpiar_PDMouseExited
@@ -2605,7 +2795,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_modificar_PDMouseMoved
 
     private void btn_modificar_PDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_PDMouseClicked
-        // TODO add your handling code here:
+        modificarProtesisDental();
     }//GEN-LAST:event_btn_modificar_PDMouseClicked
 
     private void btn_modificar_PDMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_PDMouseExited
@@ -2621,7 +2811,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_guardar_protesisMouseMoved
 
     private void btn_guardar_protesisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_protesisMouseClicked
-        // TODO add your handling code here:
+        agregarProtesisDental();
     }//GEN-LAST:event_btn_guardar_protesisMouseClicked
 
     private void btn_guardar_protesisMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_protesisMouseExited
@@ -2637,7 +2827,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_limpiar_tratamientoMouseMoved
 
     private void btn_limpiar_tratamientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limpiar_tratamientoMouseClicked
-        // TODO add your handling code here:
+        limpiarCamposTratamientos();
     }//GEN-LAST:event_btn_limpiar_tratamientoMouseClicked
 
     private void btn_limpiar_tratamientoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limpiar_tratamientoMouseExited
@@ -2649,7 +2839,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_modificar_tratamientoMouseMoved
 
     private void btn_modificar_tratamientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_tratamientoMouseClicked
-        // TODO add your handling code here:
+        modificarTratamiento();
     }//GEN-LAST:event_btn_modificar_tratamientoMouseClicked
 
     private void btn_modificar_tratamientoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_tratamientoMouseExited
@@ -2665,7 +2855,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_guardar_tratamientoMouseMoved
 
     private void btn_guardar_tratamientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_tratamientoMouseClicked
-        // TODO add your handling code here:
+        agregarTratamiento();
     }//GEN-LAST:event_btn_guardar_tratamientoMouseClicked
 
     private void btn_guardar_tratamientoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_tratamientoMouseExited
@@ -2681,7 +2871,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_limpiar_radiografiaMouseMoved
 
     private void btn_limpiar_radiografiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limpiar_radiografiaMouseClicked
-        // TODO add your handling code here:
+        limpiarRadiografias();
     }//GEN-LAST:event_btn_limpiar_radiografiaMouseClicked
 
     private void btn_limpiar_radiografiaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_limpiar_radiografiaMouseExited
@@ -2689,11 +2879,11 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_limpiar_radiografiaMouseExited
 
     private void btn_modificar_radiografiaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_radiografiaMouseMoved
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btn_modificar_radiografiaMouseMoved
 
     private void btn_modificar_radiografiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_radiografiaMouseClicked
-        // TODO add your handling code here:
+        modificarRadiografia();
     }//GEN-LAST:event_btn_modificar_radiografiaMouseClicked
 
     private void btn_modificar_radiografiaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_radiografiaMouseExited
@@ -2709,7 +2899,7 @@ public class PantallaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_guardar_radiografiaMouseMoved
 
     private void btn_guardar_radiografiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_radiografiaMouseClicked
-        // TODO add your handling code here:
+        guardarRadiografia();
     }//GEN-LAST:event_btn_guardar_radiografiaMouseClicked
 
     private void btn_guardar_radiografiaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardar_radiografiaMouseExited
@@ -2727,6 +2917,42 @@ public class PantallaMain extends javax.swing.JFrame {
     private void TablaPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPacienteMouseClicked
         cargarDatosSeleccionadosPacientes();
     }//GEN-LAST:event_TablaPacienteMouseClicked
+
+    private void TablaOdontologosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaOdontologosMouseClicked
+        cargarDatosSeleccionadosOdontologos();
+    }//GEN-LAST:event_TablaOdontologosMouseClicked
+
+    private void TablaCitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaCitasMouseClicked
+        citas.cargarDatosSeleccionados(TablaCitas, cita_id, CitasFecha, citas_MC, citas_EC, citas_paciente_id, citas_odontologo_id);
+    }//GEN-LAST:event_TablaCitasMouseClicked
+
+    private void citas_ECActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_citas_ECActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_citas_ECActionPerformed
+
+    private void TablaHCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaHCMouseClicked
+        cargarDatosSeleccionadosHistoriasClinicas();
+    }//GEN-LAST:event_TablaHCMouseClicked
+
+    private void protesis_Paciente_IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_protesis_Paciente_IDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_protesis_Paciente_IDActionPerformed
+
+    private void ProtesisDentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProtesisDentMouseClicked
+        cargarDatosSeleccionadosProtesisDentales();
+    }//GEN-LAST:event_ProtesisDentMouseClicked
+
+    private void TratamientosTBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TratamientosTBMouseClicked
+        cargarDatosSeleccionadosTratamientos();
+    }//GEN-LAST:event_TratamientosTBMouseClicked
+
+    private void radiografia_Paciente_IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiografia_Paciente_IDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radiografia_Paciente_IDActionPerformed
+
+    private void RadiografiasTBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RadiografiasTBMouseClicked
+        cargarDatosSeleccionadosRadiografia();
+    }//GEN-LAST:event_RadiografiasTBMouseClicked
 
     void consultarPacientes() {
         paciente.consultar(TablaPaciente);
@@ -2846,13 +3072,296 @@ public class PantallaMain extends javax.swing.JFrame {
         paciente_direccion.setText("");
         paciente_SD.setText(""); // Limpiar el campo seguro dental
     }
+//// ODONTOLOGOS
+    
+    private void cargarDatosSeleccionadosOdontologos() {
+    odontologos.cargarDatosSeleccionados(TablaOdontologos, odontologo_id, odontologo_nombre, odontologo_apellido, odontologo_NC, odontologo_especialidad, odontologo_HA, odontologo_CA, odontologo_telefono, odontologo_direccion, odontologo_email, estadoOdontologo);
+    }
+
+    
+    private void limpiarCamposOdontologos() {
+        odontologo_id.setText("");
+        odontologo_nombre.setText("");
+        odontologo_apellido.setText("");
+        odontologo_NC.setText("");
+        odontologo_especialidad.setText("");
+        odontologo_HA.setText("");
+        odontologo_CA.setText("");
+        odontologo_telefono.setText("");
+        odontologo_direccion.setText("");
+        odontologo_email.setText("");
+    }
+//// CITAS
+    private void consultarCitas() {
+        citas.consultar(TablaCitas);
+    }
+
+    private void guardarCita() {
+        // Obtener los datos de los campos de entrada
+        Date fechaHora = CitasFecha.getDate();
+        String motivoConsulta = citas_MC.getText();
+        String estadoCita = (String) citas_EC.getSelectedItem();
+        int pacienteId;
+        try {
+            pacienteId = Integer.parseInt(citas_paciente_id.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID del paciente debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si no se puede convertir
+        }
+        int odontologoId;
+        try {
+            odontologoId = Integer.parseInt(citas_odontologo_id.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID del odontólogo debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si no se puede convertir
+        }
+
+        // Guardar la cita en la base de datos
+        citas.guardar(fechaHora, motivoConsulta, estadoCita, pacienteId, odontologoId);
+
+        // Mostrar mensaje de éxito
+        JOptionPane.showMessageDialog(this, "La cita ha sido guardada exitosamente.", "Cita Guardada", JOptionPane.INFORMATION_MESSAGE);
+         citas.consultar(TablaCitas);
+        // Limpiar los campos después de guardar
+        limpiarCamposCitas();
+    }
+    
+    private void modificarCita() {
+        // Obtener los datos de los campos de entrada
+        int citaId;
+        try {
+            citaId = Integer.parseInt(cita_id.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID de la cita debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si no se puede convertir
+        }
+
+        int pacienteId;
+        try {
+            pacienteId = Integer.parseInt(citas_paciente_id.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID del paciente debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si no se puede convertir
+        }
+
+        Date fechaHora = CitasFecha.getDate();
+        String motivoConsulta = citas_MC.getText();
+        String estadoCita = (String) citas_EC.getSelectedItem();
+
+        int odontologoId;
+        try {
+            odontologoId = Integer.parseInt(citas_odontologo_id.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID del odontólogo debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si no se puede convertir
+        }
+
+        // Modificar la cita en la base de datos
+        citas.modificar(citaId, fechaHora, motivoConsulta, estadoCita, pacienteId, odontologoId);
+
+        // Mostrar mensaje de éxito
+        JOptionPane.showMessageDialog(this, "La cita ha sido modificada exitosamente.", "Cita Modificada", JOptionPane.INFORMATION_MESSAGE);
+        citas.consultar(TablaCitas);
+        // Limpiar los campos después de modificar
+        limpiarCamposCitas();
+    }
+    private void limpiarCamposCitas() {
+        cita_id.setText("");
+        citas_paciente_id.setText("");
+        CitasFecha.setDate(null);
+        citas_MC.setText("");
+        citas_EC.setSelectedIndex(0);
+        citas_odontologo_id.setText("");
+    }
+    
+////// HISTORIAS CLINICAS
+    private void consultarHC() {
+        historiasClinicas.consultarHC(TablaHC);
+    }    
+    
+    private void guardarHistoriaClinica() {
+        String resumenConsultas = HC_RC.getText();
+        String diagnostico = HC_diagnostico.getText();
+        int pacienteId = Integer.parseInt(HC_paciente_id.getText());
+
+        historiasClinicas.guardar(resumenConsultas, diagnostico, pacienteId);
+        historiasClinicas.consultarHC(TablaHC);
+        limpiarCamposHistoriasClinicas();
+
+        JOptionPane.showMessageDialog(this, "Historia clínica guardada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }
+    private void modificarHistoriaClinica() {
+        int id = Integer.parseInt(HC_id.getText());
+        String resumenConsultas = HC_RC.getText();
+        String diagnostico = HC_diagnostico.getText();
+        int pacienteId = Integer.parseInt(HC_paciente_id.getText());
+
+        historiasClinicas.modificar(id, resumenConsultas, diagnostico, pacienteId);
+        historiasClinicas.consultarHC(TablaHC);
+        limpiarCamposHistoriasClinicas();
+
+        JOptionPane.showMessageDialog(this, "Historia clínica modificada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }
+        // Método para limpiar los campos de Historias Clínicas
+        private void limpiarCamposHistoriasClinicas() {
+            HC_id.setText("");
+            HC_RC.setText("");
+            HC_diagnostico.setText("");
+            HC_paciente_id.setText("");
+        }
+    private void cargarDatosSeleccionadosHistoriasClinicas() {
+        historiasClinicas.cargarDatosSeleccionados(TablaHC, HC_id, HC_RC, HC_diagnostico, HC_paciente_id);
+    }
+///// PROTESIS DENTALES
+    private void consultarProtesisDentales() {
+        protesisDentales.consultar(ProtesisDent);
+    }   
+    
+    private void agregarProtesisDental() {
+        String tipo = protesis_tipo.getText();
+        String fechaColocacion = new SimpleDateFormat("yyyy-MM-dd").format(Fecha_Col.getDate());
+        double costo = Double.parseDouble(protesis_costo.getText());
+        int HCId = Integer.parseInt(protesis_HC_id.getText());
+        int pacienteId = Integer.parseInt(protesis_Paciente_ID.getText());
+
+        protesisDentales.guardar(tipo, fechaColocacion, costo, HCId, pacienteId);
+        protesisDentales.consultar(ProtesisDent);
+        limpiarCamposProtesisDentales();
+        JOptionPane.showMessageDialog(this, "Protesis dental guardada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void modificarProtesisDental() {
+        int id = Integer.parseInt(protesis_id.getText());
+        String tipo = protesis_tipo.getText();
+        String fechaColocacion = new SimpleDateFormat("yyyy-MM-dd").format(Fecha_Col.getDate());
+        double costo = Double.parseDouble(protesis_costo.getText());
+        int HCId = Integer.parseInt(protesis_HC_id.getText());
+        int pacienteId = Integer.parseInt(protesis_Paciente_ID.getText());
+
+        protesisDentales.modificar(id, tipo, fechaColocacion, costo, HCId, pacienteId);
+        protesisDentales.consultar(ProtesisDent);
+        limpiarCamposProtesisDentales();
+        JOptionPane.showMessageDialog(this, "Protesis dental modificada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private void limpiarCamposProtesisDentales() {
+        protesis_id.setText("");
+        protesis_tipo.setText("");
+        protesis_costo.setText("");
+        protesis_HC_id.setText("");
+        protesis_Paciente_ID.setText("");
+        Fecha_Col.setDate(null); // Limpiar JDateChooser
+    }
+    
+    private void cargarDatosSeleccionadosProtesisDentales() {
+        protesisDentales.cargarDatosSeleccionados(ProtesisDent, protesis_id, protesis_tipo, protesis_costo, protesis_HC_id, protesis_Paciente_ID, Fecha_Col);
+    }
+    
+///////////// TRATAMIENTOS
+    private void consultarTratamientos() {
+        tratamientos.consultar(TratamientosTB);
+    }
+    private void agregarTratamiento() {
+        String descripcion = tratamiento_descripcion.getText();
+        double costo = Double.parseDouble(tratamiento_costo.getText());
+        String fechaInicio = new SimpleDateFormat("yyyy-MM-dd").format(Fecha_Inicio.getDate());
+        String fechaFin = new SimpleDateFormat("yyyy-MM-dd").format(Fecha_Final.getDate());
+        String procedimientos = tratamiento_procedimiento.getText();
+        int HCId = Integer.parseInt(tratamiento_HC_id.getText());
+        int pacienteId = Integer.parseInt(tratamientos_Paciente_ID.getText());
+
+        tratamientos.guardar(descripcion, costo, fechaInicio, fechaFin, procedimientos, HCId, pacienteId);
+        consultarTratamientos(); // Consulta nuevamente los tratamientos después de guardar uno nuevo
+        limpiarCamposTratamientos(); // Limpia los campos de entrada después de guardar
+    }
+    private void modificarTratamiento() {
+        int id = Integer.parseInt(tratamientos_id.getText());
+        String descripcion = tratamiento_descripcion.getText();
+        double costo = Double.parseDouble(tratamiento_costo.getText());
+        String fechaInicio = new SimpleDateFormat("yyyy-MM-dd").format(Fecha_Inicio.getDate());
+        String fechaFin = new SimpleDateFormat("yyyy-MM-dd").format(Fecha_Final.getDate());
+        String procedimientos = tratamiento_procedimiento.getText();
+        int HCId = Integer.parseInt(tratamiento_HC_id.getText());
+        int pacienteId = Integer.parseInt(tratamientos_Paciente_ID.getText());
+
+        tratamientos.modificar(id, descripcion, costo, fechaInicio, fechaFin, procedimientos, HCId, pacienteId);
+        consultarTratamientos(); // Consulta nuevamente los tratamientos después de modificar uno
+        limpiarCamposTratamientos(); // Limpia los campos de entrada después de modificar
+    }
+    private void limpiarCamposTratamientos() {
+        tratamientos_id.setText("");
+        tratamiento_descripcion.setText("");
+        tratamiento_costo.setText("");
+        Fecha_Inicio.setDate(null);
+        Fecha_Final.setDate(null);
+        tratamiento_procedimiento.setText("");
+        tratamiento_HC_id.setText("");
+        tratamientos_Paciente_ID.setText("");
+    }
+
+    private void cargarDatosSeleccionadosTratamientos() {
+        tratamientos.cargarDatosSeleccionados(TratamientosTB, tratamientos_id, tratamiento_descripcion, tratamiento_costo, Fecha_Inicio, Fecha_Final, tratamiento_procedimiento, tratamiento_HC_id, tratamientos_Paciente_ID);
+    }
+    
+////////// RADIOGRAFIA
+    private void consultarRadiografias() {
+        radiografia.consultar(RadiografiasTB); // Llama al método consultar de Radiografia
+    }
+    
+    private void cargarDatosSeleccionadosRadiografia() {
+        radiografia.cargarDatosSeleccionados(
+            RadiografiasTB, radiografia_id, radiografia_fecha, radiografia_tipo, radiografia_descripcion, radiografia_HC_id, radiografia_Paciente_ID);
+    }
+    
+    private void guardarRadiografia() {
+        java.sql.Date fechaRadiografia = new java.sql.Date(radiografia_fecha.getDate().getTime());
+        String tipoRadiografia = radiografia_tipo.getText();
+        String descripcion = radiografia_descripcion.getText();
+        int HCId = Integer.parseInt(radiografia_HC_id.getText());
+        int pacienteId = Integer.parseInt(radiografia_Paciente_ID.getText());
+
+        radiografia.guardar(fechaRadiografia, tipoRadiografia, descripcion, HCId, pacienteId);
+        consultarRadiografias(); // Consulta nuevamente las radiografías después de guardar una nueva
+        limpiarRadiografias();
+    }
+    private void modificarRadiografia() {
+        int id = Integer.parseInt(radiografia_id.getText());
+        java.sql.Date fechaRadiografia = new java.sql.Date(radiografia_fecha.getDate().getTime());
+        String tipoRadiografia = radiografia_tipo.getText();
+        String descripcion = radiografia_descripcion.getText();
+        int HCId = Integer.parseInt(radiografia_HC_id.getText());
+        int pacienteId = Integer.parseInt(radiografia_Paciente_ID.getText());
+
+        radiografia.modificar(id, fechaRadiografia, tipoRadiografia, descripcion, HCId, pacienteId);
+        consultarRadiografias(); // Consulta nuevamente las radiografías después de modificar una
+        limpiarRadiografias();
+    }
+    
+    private void limpiarRadiografias() {
+        radiografia_id.setText("");
+        radiografia_fecha.setDate(null);
+        radiografia_tipo.setText("");
+        radiografia_descripcion.setText("");
+        radiografia_HC_id.setText("");
+        radiografia_Paciente_ID.setText("");
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser CitasFecha;
+    private com.toedter.calendar.JDateChooser Fecha_Col;
+    private com.toedter.calendar.JDateChooser Fecha_Final;
+    private com.toedter.calendar.JDateChooser Fecha_Inicio;
     private javax.swing.JTextArea HC_RC;
     private javax.swing.JTextArea HC_diagnostico;
     private javax.swing.JTextField HC_id;
     private javax.swing.JTextField HC_paciente_id;
+    private javax.swing.JTable ProtesisDent;
+    private javax.swing.JTable RadiografiasTB;
+    private javax.swing.JTable TablaCitas;
+    private javax.swing.JTable TablaHC;
+    private javax.swing.JTable TablaOdontologos;
     private javax.swing.JTable TablaPaciente;
+    private javax.swing.JTable TratamientosTB;
     private javax.swing.JButton btn_HC;
     private javax.swing.JButton btn_PD;
     private javax.swing.JButton btn_citas;
@@ -2887,6 +3396,7 @@ public class PantallaMain extends javax.swing.JFrame {
     private javax.swing.JTextArea citas_MC;
     private javax.swing.JTextField citas_odontologo_id;
     private javax.swing.JTextField citas_paciente_id;
+    private javax.swing.JComboBox<String> estadoOdontologo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2925,7 +3435,11 @@ public class PantallaMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2958,12 +3472,6 @@ public class PantallaMain extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable6;
-    private javax.swing.JTable jTable7;
     private javax.swing.JLabel lbl_nombre_proyecto;
     private javax.swing.JLabel lbl_nombre_proyecto1;
     private javax.swing.JLabel lbl_nombre_proyecto2;
@@ -2998,11 +3506,14 @@ public class PantallaMain extends javax.swing.JFrame {
     private javax.swing.JPanel panel_lateral;
     private javax.swing.JTabbedPane pestañas;
     private javax.swing.JTextField protesis_HC_id;
+    private javax.swing.JTextField protesis_Paciente_ID;
     private javax.swing.JTextField protesis_costo;
     private javax.swing.JTextField protesis_id;
     private javax.swing.JTextField protesis_tipo;
     private javax.swing.JTextField radiografia_HC_id;
+    private javax.swing.JTextField radiografia_Paciente_ID;
     private javax.swing.JTextArea radiografia_descripcion;
+    private com.toedter.calendar.JDateChooser radiografia_fecha;
     private javax.swing.JTextField radiografia_id;
     private javax.swing.JTextField radiografia_tipo;
     private javax.swing.JSeparator separador_nombre;
@@ -3010,6 +3521,7 @@ public class PantallaMain extends javax.swing.JFrame {
     private javax.swing.JTextField tratamiento_costo;
     private javax.swing.JTextArea tratamiento_descripcion;
     private javax.swing.JTextArea tratamiento_procedimiento;
+    private javax.swing.JTextField tratamientos_Paciente_ID;
     private javax.swing.JTextField tratamientos_id;
     // End of variables declaration//GEN-END:variables
 }
