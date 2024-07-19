@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jtable_a_excel;
+package sistema_historias_medicas;
 
 import java.awt.Desktop;
 import java.io.File;

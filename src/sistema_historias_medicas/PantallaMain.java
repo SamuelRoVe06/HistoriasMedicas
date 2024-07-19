@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.regex.Matcher; // Importación para realizar coincidencias de expresiones regulares
 import java.util.regex.Pattern; // Importación para trabajar con patrones de expresiones regulares
 import javax.swing.JTable;
-import jtable_a_excel.ExportarExcel;
+import sistema_historias_medicas.ExportarExcel;
 
 
 
