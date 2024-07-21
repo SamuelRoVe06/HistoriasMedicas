@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Pacientes` (
   `enfermedades_preexistentes` TEXT NULL,
   `seguro_dental` TEXT NULL,
   PRIMARY KEY (`paciente_id`))
-ENGINE = InnoDB;
+ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Odontologos` (
   `direccion` VARCHAR(255) NOT NULL,
   `email` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`odontologos_id`))
-ENGINE = InnoDB;
+ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Citas` (
     REFERENCES `mydb`.`Odontologos` (`odontologos_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Historias_Clinicas` (
     REFERENCES `mydb`.`Pacientes` (`paciente_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Tratamientos` (
     REFERENCES `mydb`.`Historias_Clinicas` (`historia_clinica_id` , `Pacientes_paciente_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Radiografias` (
     REFERENCES `mydb`.`Historias_Clinicas` (`historia_clinica_id` , `Pacientes_paciente_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Protesis_Dentales` (
     REFERENCES `mydb`.`Historias_Clinicas` (`historia_clinica_id` , `Pacientes_paciente_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = MyISAM;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
