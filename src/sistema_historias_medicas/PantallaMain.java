@@ -77,6 +77,7 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_tratamientos = new javax.swing.JButton();
         btn_salida = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
         pestañas = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -565,6 +566,21 @@ public class PantallaMain extends javax.swing.JFrame {
 
         panel_fondo.add(panel_lateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 720));
 
+        jPanel12.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 920, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        panel_fondo.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 920, 30));
+
         btnP.setBackground(new java.awt.Color(101, 44, 179));
         btnP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnP.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -715,12 +731,12 @@ public class PantallaMain extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(370, 370, 370)
+                .addGap(231, 231, 231)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(231, Short.MAX_VALUE))
+                .addContainerGap(370, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -4623,6 +4639,7 @@ private void modificarProtesisDental() {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
