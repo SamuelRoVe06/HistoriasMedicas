@@ -42,7 +42,7 @@ public class Citas {
             }
             tabla.setModel(modelo);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar las citas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al consultar las citas: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -83,7 +83,7 @@ public class Citas {
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Cita guardada correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar la cita: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al guardar la cita: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -110,7 +110,7 @@ public class Citas {
             }
             tabla.setModel(modelo);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar las citas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al buscar las citas: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -134,7 +134,7 @@ public class Citas {
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Cita modificada correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar la cita: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al modificar la cita: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -187,7 +187,7 @@ public class Citas {
             }
         }
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al verificar citas pendientes: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Error al verificar citas pendientes: ", "Error", JOptionPane.ERROR_MESSAGE);
     }
     return false;
 }
@@ -207,7 +207,7 @@ public class Citas {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al verificar citas del odontólogo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al verificar citas del odontólogo: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }
@@ -222,7 +222,7 @@ public class Citas {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al verificar existencia del paciente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al verificar existencia del paciente: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }
@@ -237,7 +237,7 @@ public class Citas {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al verificar existencia del odontólogo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al verificar existencia del odontólogo: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }

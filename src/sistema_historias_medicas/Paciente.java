@@ -40,7 +40,7 @@ public class Paciente {
             }
             tabla.setModel(modelo);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar los pacientes: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al consultar los pacientes: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -96,7 +96,7 @@ public class Paciente {
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Paciente guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar el paciente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al guardar el paciente: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -121,7 +121,7 @@ public class Paciente {
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Paciente modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar el paciente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al modificar el paciente: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
      public void buscarPacientes(JTable tabla, String criterio) {
@@ -152,7 +152,7 @@ public class Paciente {
             }
             tabla.setModel(modelo);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar los pacientes: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al buscar los pacientes: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

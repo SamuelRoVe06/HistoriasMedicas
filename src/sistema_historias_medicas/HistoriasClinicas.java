@@ -35,7 +35,7 @@ public class HistoriasClinicas {
             }
             Tabla.setModel(modelo);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar las historias clínicas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al consultar las historias clínicas: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -59,7 +59,7 @@ public class HistoriasClinicas {
                }
                tabla.setModel(modelo);
            } catch (SQLException e) {
-               JOptionPane.showMessageDialog(null, "Error al buscar las historias clínicas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+               JOptionPane.showMessageDialog(null, "Error al buscar las historias clínicas: ", "Error", JOptionPane.ERROR_MESSAGE);
            }
        }
     
@@ -87,7 +87,7 @@ public class HistoriasClinicas {
             pst.setInt(3, pacienteId);
             pst.executeUpdate();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar la historia clínica: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al guardar la historia clínica: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -104,7 +104,7 @@ public class HistoriasClinicas {
             pst.setInt(4, id);
             pst.executeUpdate();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar la historia clínica: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al modificar la historia clínica: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -141,7 +141,7 @@ public class HistoriasClinicas {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al verificar la existencia del paciente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al verificar la existencia del paciente: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }
@@ -153,7 +153,7 @@ public class HistoriasClinicas {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al contar los pacientes: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al contar los pacientes: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return 0;
     }
@@ -165,7 +165,7 @@ public class HistoriasClinicas {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al contar las historias clínicas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al contar las historias clínicas: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return 0;
     }
@@ -180,7 +180,7 @@ public class HistoriasClinicas {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al verificar la existencia de una historia clínica: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al verificar la existencia de una historia clínica: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }

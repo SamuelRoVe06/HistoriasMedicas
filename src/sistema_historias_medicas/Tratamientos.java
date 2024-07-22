@@ -167,7 +167,7 @@ public class Tratamientos {
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Tratamiento modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar el tratamiento: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al modificar el tratamiento: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -194,7 +194,7 @@ public class Tratamientos {
             }
             tabla.setModel(modelo);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar tratamientos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al buscar tratamientos: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

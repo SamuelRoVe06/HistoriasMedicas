@@ -38,7 +38,7 @@ public class Protesis_Dentales {
             }
             Tabla.setModel(modelo);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar las prótesis dentales: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al consultar las prótesis dentales: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -76,7 +76,7 @@ public class Protesis_Dentales {
             st.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Prótesis dental guardada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar la prótesis dental: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al guardar la prótesis dental: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -120,7 +120,7 @@ public class Protesis_Dentales {
            pst.executeUpdate();
            JOptionPane.showMessageDialog(null, "Prótesis dental modificada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
        } catch (SQLException e) {
-           JOptionPane.showMessageDialog(null, "Error al modificar la prótesis dental: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(null, "Error al modificar la prótesis dental: ", "Error", JOptionPane.ERROR_MESSAGE);
        }
     }
 
@@ -144,7 +144,7 @@ public class Protesis_Dentales {
             }
             tabla.setModel(modelo);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar las prótesis dentales: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al buscar las prótesis dentales: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     

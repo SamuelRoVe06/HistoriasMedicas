@@ -42,7 +42,7 @@ public class Odontologos {
             }
             tabla.setModel(modelo);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar los odontólogos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al consultar los odontólogos: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -135,7 +135,7 @@ public class Odontologos {
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Odontólogo guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar el odontólogo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al guardar el odontólogo: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -166,7 +166,7 @@ public class Odontologos {
             }
             tabla.setModel(modelo);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar los odontólogos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al buscar los odontólogos: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -192,7 +192,7 @@ public class Odontologos {
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Odontólogo modificado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar el odontólogo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al modificar el odontólogo: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

@@ -38,7 +38,7 @@ public class Radiografia {
             }
             Tabla.setModel(modelo);
         } catch (SQLException e) {
-            System.err.println("Error al consultar las radiografías: " + e.getMessage());
+            System.err.println("Error al consultar las radiografías: ");
         }
     }
 
@@ -111,7 +111,7 @@ public class Radiografia {
                 return rs.getInt(1) > 0;
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al verificar la existencia de la historia clínica y el paciente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al verificar la existencia de la historia clínica y el paciente: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }
@@ -135,7 +135,7 @@ public class Radiografia {
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Radiografía guardada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar la radiografía: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al guardar la radiografía: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -168,7 +168,7 @@ public class Radiografia {
                 JOptionPane.showMessageDialog(null, "No se pudo modificar la radiografía.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar la radiografía: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al modificar la radiografía: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -192,7 +192,7 @@ public class Radiografia {
             }
             tabla.setModel(modelo);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar las radiografías: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al buscar las radiografías: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
