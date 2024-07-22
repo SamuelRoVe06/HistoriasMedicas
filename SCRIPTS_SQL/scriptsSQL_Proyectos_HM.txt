@@ -8,17 +8,17 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema sistema_historias_medicas
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema sistema_historias_medicas
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `sistema_historias_medicas` DEFAULT CHARACTER SET utf8 ;
+USE `sistema_historias_medicas` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Pacientes`
+-- Table `sistema_historias_medicas`.`Pacientes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Pacientes` (
   `paciente_id` INT NOT NULL AUTO_INCREMENT,
@@ -37,7 +37,7 @@ ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Odontologos`
+-- Table `sistema_historias_medicas`.`Odontologos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Odontologos` (
   `odontologos_id` INT NOT NULL AUTO_INCREMENT,
@@ -55,7 +55,7 @@ ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Citas`
+-- Table `sistema_historias_medicas`.`Citas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Citas` (
   `cita_id` INT NOT NULL AUTO_INCREMENT,
@@ -69,19 +69,19 @@ CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Citas` (
   INDEX `fk_Citas_Odontologos1_idx` (`Odontologos_odontologos_id` ASC),
   CONSTRAINT `fk_Citas_Pacientes`
     FOREIGN KEY (`Pacientes_paciente_id`)
-    REFERENCES `mydb`.`Pacientes` (`paciente_id`)
+    REFERENCES `sistema_historias_medicas`.`Pacientes` (`paciente_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Citas_Odontologos1`
     FOREIGN KEY (`Odontologos_odontologos_id`)
-    REFERENCES `mydb`.`Odontologos` (`odontologos_id`)
+    REFERENCES `sistema_historias_medicas`.`Odontologos` (`odontologos_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Historias_Clinicas`
+-- Table `sistema_historias_medicas`.`Historias_Clinicas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Historias_Clinicas` (
   `historia_clinica_id` INT NOT NULL AUTO_INCREMENT,
@@ -92,14 +92,14 @@ CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Historias_Clinicas` (
   INDEX `fk_Historias_Clinicas_Pacientes1_idx` (`Pacientes_paciente_id` ASC),
   CONSTRAINT `fk_Historias_Clinicas_Pacientes1`
     FOREIGN KEY (`Pacientes_paciente_id`)
-    REFERENCES `mydb`.`Pacientes` (`paciente_id`)
+    REFERENCES `sistema_historias_medicas`.`Pacientes` (`paciente_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Tratamientos`
+-- Table `sistema_historias_medicas`.`Tratamientos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Tratamientos` (
   `tratamiento_id` INT NOT NULL AUTO_INCREMENT,
@@ -114,14 +114,14 @@ CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Tratamientos` (
   INDEX `fk_Tratamientos_Historias_Clinicas1_idx` (`Historias_Clinicas_historia_clinica_id` ASC, `Historias_Clinicas_Pacientes_paciente_id` ASC),
   CONSTRAINT `fk_Tratamientos_Historias_Clinicas1`
     FOREIGN KEY (`Historias_Clinicas_historia_clinica_id` , `Historias_Clinicas_Pacientes_paciente_id`)
-    REFERENCES `mydb`.`Historias_Clinicas` (`historia_clinica_id` , `Pacientes_paciente_id`)
+    REFERENCES `sistema_historias_medicas`.`Historias_Clinicas` (`historia_clinica_id` , `Pacientes_paciente_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Radiografias`
+-- Table `sistema_historias_medicas`.`Radiografias`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Radiografias` (
   `radiografia_id` INT NOT NULL AUTO_INCREMENT,
@@ -134,14 +134,14 @@ CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Radiografias` (
   INDEX `fk_Radiografias_Historias_Clinicas1_idx` (`Historias_Clinicas_historia_clinica_id` ASC, `Historias_Clinicas_Pacientes_paciente_id` ASC),
   CONSTRAINT `fk_Radiografias_Historias_Clinicas1`
     FOREIGN KEY (`Historias_Clinicas_historia_clinica_id` , `Historias_Clinicas_Pacientes_paciente_id`)
-    REFERENCES `mydb`.`Historias_Clinicas` (`historia_clinica_id` , `Pacientes_paciente_id`)
+    REFERENCES `sistema_historias_medicas`.`Historias_Clinicas` (`historia_clinica_id` , `Pacientes_paciente_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Protesis_Dentales`
+-- Table `sistema_historias_medicas`.`Protesis_Dentales`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Protesis_Dentales` (
   `protesis_id` INT NOT NULL AUTO_INCREMENT,
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `sistema_historias_medicas`.`Protesis_Dentales` (
   INDEX `fk_Protesis_Dentales_Historias_Clinicas1_idx` (`Historias_Clinicas_historia_clinica_id` ASC, `Historias_Clinicas_Pacientes_paciente_id` ASC),
   CONSTRAINT `fk_Protesis_Dentales_Historias_Clinicas1`
     FOREIGN KEY (`Historias_Clinicas_historia_clinica_id` , `Historias_Clinicas_Pacientes_paciente_id`)
-    REFERENCES `mydb`.`Historias_Clinicas` (`historia_clinica_id` , `Pacientes_paciente_id`)
+    REFERENCES `sistema_historias_medicas`.`Historias_Clinicas` (`historia_clinica_id` , `Pacientes_paciente_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = MyISAM;
