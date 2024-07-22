@@ -1708,7 +1708,7 @@ public class PantallaMain extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Odontologo ID", "Nombre", "Apellido", "Numero Colegiatura", "especialidad", "Direccion", "Telefono", "Email", "Horario Atencion", "Consultorio Asignado", "Estado"
+                "Odontologo ID", "Nombre", "Apellido", "Numero Colegiatura", "especialidad", "Horario Atencion", "Consultorio Asignado", "Telefono", "Direccion", "Email", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1736,6 +1736,7 @@ public class PantallaMain extends javax.swing.JFrame {
             TablaOdontologos.getColumnModel().getColumn(6).setResizable(false);
             TablaOdontologos.getColumnModel().getColumn(7).setResizable(false);
             TablaOdontologos.getColumnModel().getColumn(8).setResizable(false);
+            TablaOdontologos.getColumnModel().getColumn(9).setResizable(false);
             TablaOdontologos.getColumnModel().getColumn(10).setResizable(false);
         }
 
