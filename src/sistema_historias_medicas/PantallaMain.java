@@ -75,7 +75,6 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_PD = new javax.swing.JButton();
         btn_tratamientos = new javax.swing.JButton();
         btn_salida = new javax.swing.JButton();
-        jPanel10 = new javax.swing.JPanel();
         pestañas = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -88,6 +87,7 @@ public class PantallaMain extends javax.swing.JFrame {
         btnC = new javax.swing.JPanel();
         jLabel50 = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         lbl_nombre_proyecto2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -538,21 +538,6 @@ public class PantallaMain extends javax.swing.JFrame {
 
         panel_fondo.add(panel_lateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 720));
 
-        jPanel10.setBackground(new java.awt.Color(204, 204, 204));
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 920, Short.MAX_VALUE)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
-
-        panel_fondo.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 920, 30));
-
         btnP.setBackground(new java.awt.Color(101, 44, 179));
         btnP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnP.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -687,6 +672,19 @@ public class PantallaMain extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
+        jPanel10.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 920, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -694,21 +692,27 @@ public class PantallaMain extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addComponent(btnP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(btnC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(btnO, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(88, 88, 88))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(259, 259, 259)
+                .addContainerGap()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(329, 329, 329)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(342, Short.MAX_VALUE))
+                .addContainerGap(231, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -741,7 +745,15 @@ public class PantallaMain extends javax.swing.JFrame {
             new String [] {
                 "Paciente ID", "Nombre", "Apellido", "Fecha Nacimiento", "Genero", "Direccion", "Telefono", "Email", "Alergias", "Enfermedades Preexistentes", "Seguro Dental"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         TablaPaciente.getTableHeader().setReorderingAllowed(false);
         TablaPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -749,6 +761,19 @@ public class PantallaMain extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(TablaPaciente);
+        if (TablaPaciente.getColumnModel().getColumnCount() > 0) {
+            TablaPaciente.getColumnModel().getColumn(0).setResizable(false);
+            TablaPaciente.getColumnModel().getColumn(1).setResizable(false);
+            TablaPaciente.getColumnModel().getColumn(2).setResizable(false);
+            TablaPaciente.getColumnModel().getColumn(3).setResizable(false);
+            TablaPaciente.getColumnModel().getColumn(4).setResizable(false);
+            TablaPaciente.getColumnModel().getColumn(5).setResizable(false);
+            TablaPaciente.getColumnModel().getColumn(6).setResizable(false);
+            TablaPaciente.getColumnModel().getColumn(7).setResizable(false);
+            TablaPaciente.getColumnModel().getColumn(8).setResizable(false);
+            TablaPaciente.getColumnModel().getColumn(9).setResizable(false);
+            TablaPaciente.getColumnModel().getColumn(10).setResizable(false);
+        }
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Paciente ID");
@@ -1083,7 +1108,15 @@ public class PantallaMain extends javax.swing.JFrame {
             new String [] {
                 "Historia Clinica ID", "Resumen Consultas", "Diagnostico", "Paciente ID"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         TablaHC.getTableHeader().setReorderingAllowed(false);
         TablaHC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1091,6 +1124,12 @@ public class PantallaMain extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(TablaHC);
+        if (TablaHC.getColumnModel().getColumnCount() > 0) {
+            TablaHC.getColumnModel().getColumn(0).setResizable(false);
+            TablaHC.getColumnModel().getColumn(1).setResizable(false);
+            TablaHC.getColumnModel().getColumn(2).setResizable(false);
+            TablaHC.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jLabel82.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel82.setText("Paciente ID");
@@ -1324,7 +1363,15 @@ public class PantallaMain extends javax.swing.JFrame {
             new String [] {
                 "Cita ID", "Fecha y Hora", "Motivo Consulta", "Estado Cita", "Paciente ID", "Odontologo ID"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         TablaCitas.getTableHeader().setReorderingAllowed(false);
         TablaCitas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1332,6 +1379,14 @@ public class PantallaMain extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(TablaCitas);
+        if (TablaCitas.getColumnModel().getColumnCount() > 0) {
+            TablaCitas.getColumnModel().getColumn(0).setResizable(false);
+            TablaCitas.getColumnModel().getColumn(1).setResizable(false);
+            TablaCitas.getColumnModel().getColumn(2).setResizable(false);
+            TablaCitas.getColumnModel().getColumn(3).setResizable(false);
+            TablaCitas.getColumnModel().getColumn(4).setResizable(false);
+            TablaCitas.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         jLabel12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel12.setText("Paciente ID");
@@ -1647,7 +1702,15 @@ public class PantallaMain extends javax.swing.JFrame {
             new String [] {
                 "Odontologo ID", "Nombre", "Apellido", "Numero Colegiatura", "especialidad", "Direccion", "Telefono", "Email", "Horario Atencion", "Consultorio Asignado", "Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         TablaOdontologos.getTableHeader().setReorderingAllowed(false);
         TablaOdontologos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1655,6 +1718,18 @@ public class PantallaMain extends javax.swing.JFrame {
             }
         });
         jScrollPane4.setViewportView(TablaOdontologos);
+        if (TablaOdontologos.getColumnModel().getColumnCount() > 0) {
+            TablaOdontologos.getColumnModel().getColumn(0).setResizable(false);
+            TablaOdontologos.getColumnModel().getColumn(1).setResizable(false);
+            TablaOdontologos.getColumnModel().getColumn(2).setResizable(false);
+            TablaOdontologos.getColumnModel().getColumn(3).setResizable(false);
+            TablaOdontologos.getColumnModel().getColumn(4).setResizable(false);
+            TablaOdontologos.getColumnModel().getColumn(5).setResizable(false);
+            TablaOdontologos.getColumnModel().getColumn(6).setResizable(false);
+            TablaOdontologos.getColumnModel().getColumn(7).setResizable(false);
+            TablaOdontologos.getColumnModel().getColumn(8).setResizable(false);
+            TablaOdontologos.getColumnModel().getColumn(10).setResizable(false);
+        }
 
         jLabel18.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel18.setText("Odontólogo ID");
@@ -2003,7 +2078,15 @@ public class PantallaMain extends javax.swing.JFrame {
             new String [] {
                 "Protesis ID", "Tipo Protesis", "Fecha Colocacion", "Costo", "Historia Clinica ID", "Paciente ID"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         ProtesisDent.getTableHeader().setReorderingAllowed(false);
         ProtesisDent.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2011,6 +2094,14 @@ public class PantallaMain extends javax.swing.JFrame {
             }
         });
         jScrollPane5.setViewportView(ProtesisDent);
+        if (ProtesisDent.getColumnModel().getColumnCount() > 0) {
+            ProtesisDent.getColumnModel().getColumn(0).setResizable(false);
+            ProtesisDent.getColumnModel().getColumn(1).setResizable(false);
+            ProtesisDent.getColumnModel().getColumn(2).setResizable(false);
+            ProtesisDent.getColumnModel().getColumn(3).setResizable(false);
+            ProtesisDent.getColumnModel().getColumn(4).setResizable(false);
+            ProtesisDent.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         jLabel27.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel27.setText("Prótesis ID");
@@ -2282,7 +2373,15 @@ public class PantallaMain extends javax.swing.JFrame {
             new String [] {
                 "Tratamiento ID", "Descripcion", "Costo", "Fecha Inicio", "Fecha Final", "Procedimientos", "Historia Clinica ID", "Paciente ID"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         TratamientosTB.getTableHeader().setReorderingAllowed(false);
         TratamientosTB.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2290,6 +2389,16 @@ public class PantallaMain extends javax.swing.JFrame {
             }
         });
         jScrollPane6.setViewportView(TratamientosTB);
+        if (TratamientosTB.getColumnModel().getColumnCount() > 0) {
+            TratamientosTB.getColumnModel().getColumn(0).setResizable(false);
+            TratamientosTB.getColumnModel().getColumn(1).setResizable(false);
+            TratamientosTB.getColumnModel().getColumn(2).setResizable(false);
+            TratamientosTB.getColumnModel().getColumn(3).setResizable(false);
+            TratamientosTB.getColumnModel().getColumn(4).setResizable(false);
+            TratamientosTB.getColumnModel().getColumn(5).setResizable(false);
+            TratamientosTB.getColumnModel().getColumn(6).setResizable(false);
+            TratamientosTB.getColumnModel().getColumn(7).setResizable(false);
+        }
 
         jLabel33.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel33.setText("Tratamiento ID");
@@ -2582,7 +2691,15 @@ public class PantallaMain extends javax.swing.JFrame {
             new String [] {
                 "Radiografia ID", "Fecha Radiografia", "Tipo Radiografia", "Descripcion", "Historia Clinica ID", "Paciente ID"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         RadiografiasTB.getTableHeader().setReorderingAllowed(false);
         RadiografiasTB.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2590,6 +2707,14 @@ public class PantallaMain extends javax.swing.JFrame {
             }
         });
         jScrollPane7.setViewportView(RadiografiasTB);
+        if (RadiografiasTB.getColumnModel().getColumnCount() > 0) {
+            RadiografiasTB.getColumnModel().getColumn(0).setResizable(false);
+            RadiografiasTB.getColumnModel().getColumn(1).setResizable(false);
+            RadiografiasTB.getColumnModel().getColumn(2).setResizable(false);
+            RadiografiasTB.getColumnModel().getColumn(3).setResizable(false);
+            RadiografiasTB.getColumnModel().getColumn(4).setResizable(false);
+            RadiografiasTB.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         jLabel37.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel37.setText("Radiografía ID");
