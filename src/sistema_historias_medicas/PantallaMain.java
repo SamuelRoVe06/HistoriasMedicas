@@ -299,7 +299,7 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_radiografias.setBackground(new java.awt.Color(101, 44, 179));
         btn_radiografias.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_radiografias.setForeground(new java.awt.Color(255, 255, 255));
-        btn_radiografias.setText("Radiografías");
+        btn_radiografias.setText("        Radiografías");
         btn_radiografias.setBorder(null);
         btn_radiografias.setBorderPainted(false);
         btn_radiografias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -329,7 +329,7 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_pacientes.setBackground(new java.awt.Color(101, 44, 179));
         btn_pacientes.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_pacientes.setForeground(new java.awt.Color(255, 255, 255));
-        btn_pacientes.setText("Pacientes");
+        btn_pacientes.setText("          Pacientes");
         btn_pacientes.setBorder(null);
         btn_pacientes.setBorderPainted(false);
         btn_pacientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -359,7 +359,7 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_HC.setBackground(new java.awt.Color(101, 44, 179));
         btn_HC.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_HC.setForeground(new java.awt.Color(255, 255, 255));
-        btn_HC.setText("Historias Clínicas");
+        btn_HC.setText("     Historias Clínicas");
         btn_HC.setBorder(null);
         btn_HC.setBorderPainted(false);
         btn_HC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -389,7 +389,7 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_citas.setBackground(new java.awt.Color(101, 44, 179));
         btn_citas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_citas.setForeground(new java.awt.Color(255, 255, 255));
-        btn_citas.setText("Citas");
+        btn_citas.setText("               Citas");
         btn_citas.setBorder(null);
         btn_citas.setBorderPainted(false);
         btn_citas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -419,7 +419,7 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_odontologos.setBackground(new java.awt.Color(101, 44, 179));
         btn_odontologos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_odontologos.setForeground(new java.awt.Color(255, 255, 255));
-        btn_odontologos.setText("Odontólogos");
+        btn_odontologos.setText("         Odontólogos");
         btn_odontologos.setBorder(null);
         btn_odontologos.setBorderPainted(false);
         btn_odontologos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -449,7 +449,7 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_PD.setBackground(new java.awt.Color(101, 44, 179));
         btn_PD.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_PD.setForeground(new java.awt.Color(255, 255, 255));
-        btn_PD.setText("Prótesis Dentales");
+        btn_PD.setText("    Prótesis Dentales");
         btn_PD.setBorder(null);
         btn_PD.setBorderPainted(false);
         btn_PD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -479,7 +479,7 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_tratamientos.setBackground(new java.awt.Color(101, 44, 179));
         btn_tratamientos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_tratamientos.setForeground(new java.awt.Color(255, 255, 255));
-        btn_tratamientos.setText("Tratamientos");
+        btn_tratamientos.setText("       Tratamientos");
         btn_tratamientos.setBorder(null);
         btn_tratamientos.setBorderPainted(false);
         btn_tratamientos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -509,7 +509,7 @@ public class PantallaMain extends javax.swing.JFrame {
         btn_salida.setBackground(new java.awt.Color(101, 44, 179));
         btn_salida.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_salida.setForeground(new java.awt.Color(255, 255, 255));
-        btn_salida.setText("Salir");
+        btn_salida.setText("    SALIR");
         btn_salida.setBorder(null);
         btn_salida.setBorderPainted(false);
         btn_salida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
